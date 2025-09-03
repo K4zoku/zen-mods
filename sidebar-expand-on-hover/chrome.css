@@ -104,6 +104,8 @@
         This is as close as I was able to get so far.
         */
         &::before {
+            --zen-main-browser-background: #202020 !important;
+            --lwt-accent-color: var(--zen-main-browser-background-toolbar);
             position: absolute;
             content: "";
             width: calc(var(--zen-sidebar-width) - var(--zen-toolbox-padding));
@@ -138,27 +140,43 @@
             transition: var(--ext-theme-background-transition), width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed) !important;
         }
     }
+
+    /* Fix width smaller than the bar */
+    .zen-workspace-tabs-section {
+        &:not(.zen-essentials-container) {
+            min-width: 100% !important;
+        }
+    }
     
     /* Essentials */
-    #zen-essentials-container {
-        display: flex !important;
-        justify-content: center !important;
-        gap: 0 !important;
-        overflow-x: scroll !important;
-        
-        > .tabbrowser-tab {
-            flex: 1 !important;
-            /* Todo change this from hardcoded value */
-            min-width: 40px !important;
-            margin-inline: calc(var(--zen-toolbox-padding) - 2px) !important;
-            transition: flex-grow var(--theme-sidebar_expand_on_hover-transition_speed) linear, 
-                min-width var(--theme-sidebar_expand_on_hover-transition_speed) linear, 
-                margin-inline var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+    #zen-essentials {
+        .zen-essentials-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 0 !important;
+            overflow: hidden;
+
+            > .tabbrowser-tab {
+                flex: 1 !important;
+                /* Todo change this from hardcoded value */
+                min-width: 40px !important;
+                margin-inline: calc(var(--zen-toolbox-padding) - 2px) !important;
+                transition: flex-grow
+                    var(--theme-sidebar_expand_on_hover-transition_speed) linear,
+                min-width var(--theme-sidebar_expand_on_hover-transition_speed) linear,
+                margin-inline var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear !important;
+
+                & .tab-icon-stack > .tab-icon-image {
+                    margin-inline: 0 !important;
+                }
+            }
         }
     }
     
     /* Hide empty top buttons */
-    #zen-sidebar-top-buttons:not(:has(:not(#zen-sidebar-top-buttons-separator, #zen-sidebar-top-buttons-customization-target))) {
+    #zen-sidebar-top-buttons {
         display: none !important;
     }
 
@@ -249,13 +267,41 @@
                 margin-inline: 0 !important;
             }
         }
-        
-        #zen-essentials-container:has([selected]) > .tabbrowser-tab:not([selected]),
-        #zen-essentials-container:not(:has([selected])) > .tabbrowser-tab:not(:first-child) {
-                flex-grow: 0 !important;
-                width: 0 !important;
-                min-width: 0 !important;
-                margin-inline: 0 !important;
+
+        zen-folder {
+            .tab-group-container {
+                border-left: 2px solid accentcolor !important;
+            }
+            .tabbrowser-tab {
+                --zen-folder-indent: 0 !important;
+            }
+        }
+        .tab-reset-button {
+            display: none !important;
+        }
+
+        #zen-essentials {
+            .zen-essentials-container {
+                flex-direction: column !important;
+            }
+            > .tabbrowser-tab { 
+                & .tab-content {
+                    justify-items: start !important;
+                }
+            }
+        }
+
+        /* Bottom buttons */
+        #zen-sidebar-foot-buttons {
+            flex-direction: column !important;
+
+            & .subviewbutton:not([active=true]) {
+                display: none !important;
+            }
+        }
+
+        #zen-media-focus-button {
+            display: block !important;
         }
         
         toolbarspring {

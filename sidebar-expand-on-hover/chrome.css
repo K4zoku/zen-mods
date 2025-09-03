@@ -304,6 +304,16 @@
       transition: 60ms opacity ease-in,
         width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
     }
+    @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_media_control") {
+      #zen-media-controls-toolbar {
+        opacity: 1 !important;
+        appearance: visible !important;
+        pointer-events: auto !important;
+        transition: 60ms opacity ease-in,
+          width ease-in-out
+            var(--theme-sidebar_expand_on_hover-transition_speed) !important;
+      }
+    }
   }
 
   /* Collapsed bar */
@@ -325,8 +335,10 @@
     }
 
     zen-folder {
-      .tab-group-container {
-        border-left: 2px solid accentcolor !important;
+      @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.folder_highlight") {
+        .tab-group-container {
+          border-left: 2px solid accentcolor !important;
+        }
       }
       .tabbrowser-tab {
         --zen-folder-indent: 0 !important;
@@ -367,8 +379,18 @@
       }
     }
 
-    #zen-media-focus-button {
-      display: block !important;
+    @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_media_control") {
+      #zen-media-controls-toolbar {
+        opacity: 0 !important;
+        appearance: none !important;
+        pointer-events: none !important;
+      }
+    }
+
+    @media not (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_media_control") {
+      #zen-media-focus-button {
+        display: block !important;
+      }
     }
 
     toolbarspring {

@@ -329,9 +329,22 @@
     }
 
     #zen-essentials {
-      > .tabbrowser-tab {
-        & .tab-content {
-          justify-items: start !important;
+      .zen-essentials-container {
+        > .tabbrowser-tab {
+          display: none !important; /* Hide all tabs by default */
+          & .tab-content {
+            justify-items: start !important;
+          }
+        }
+
+        > .tabbrowser-tab[selected] {
+          display: block !important; /* Show the selected tab */
+        }
+        
+      }
+      .zen-essentials-container:not(:has(.tabbrowser-tab[selected])) {
+        .tabbrowser-tab:first-of-type {
+          display: block !important; /* Show the first tab if no selected tab is present */
         }
       }
     }

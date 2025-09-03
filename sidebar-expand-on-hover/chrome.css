@@ -181,6 +181,14 @@
   }
 
   /* Essentials */
+  @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.wrap_essentials") {
+    #zen-essentials {
+      .zen-essentials-container {
+        flex-wrap: wrap !important;
+      }
+    }
+  }
+
   #zen-essentials {
     .zen-essentials-container {
       display: flex !important;
@@ -328,23 +336,24 @@
       display: none !important;
     }
 
-    #zen-essentials {
-      .zen-essentials-container {
-        > .tabbrowser-tab {
-          display: none !important; /* Hide all tabs by default */
-          & .tab-content {
-            justify-items: start !important;
+    @media not (-moz-bool-pref: "theme.sidebar_expand_on_hover.wrap_essentials") {
+      #zen-essentials {
+        .zen-essentials-container {
+          > .tabbrowser-tab {
+            display: none !important; /* Hide all tabs by default */
+            & .tab-content {
+              justify-items: start !important;
+            }
+          }
+
+          > .tabbrowser-tab[selected] {
+            display: block !important; /* Show the selected tab */
           }
         }
-
-        > .tabbrowser-tab[selected] {
-          display: block !important; /* Show the selected tab */
-        }
-        
-      }
-      .zen-essentials-container:not(:has(.tabbrowser-tab[selected])) {
-        .tabbrowser-tab:first-of-type {
-          display: block !important; /* Show the first tab if no selected tab is present */
+        .zen-essentials-container:not(:has(.tabbrowser-tab[selected])) {
+          .tabbrowser-tab:first-of-type {
+            display: block !important; /* Show the first tab if no selected tab is present */
+          }
         }
       }
     }

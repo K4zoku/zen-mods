@@ -184,6 +184,7 @@
   #zen-essentials {
     .zen-essentials-container {
       display: flex !important;
+      flex-wrap: wrap !important;
       justify-content: center !important;
       align-items: center !important;
       gap: 0 !important;
@@ -328,9 +329,6 @@
     }
 
     #zen-essentials {
-      .zen-essentials-container {
-        flex-direction: column !important;
-      }
       > .tabbrowser-tab {
         & .tab-content {
           justify-items: start !important;

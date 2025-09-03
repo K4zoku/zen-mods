@@ -156,6 +156,7 @@
             align-items: center !important;
             gap: 0 !important;
             overflow: hidden;
+            margin-top: var(--zen-toolbox-padding);
 
             > .tabbrowser-tab {
                 flex: 1 !important;

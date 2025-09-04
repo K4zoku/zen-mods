@@ -133,13 +133,8 @@
       transition: 60ms opacity ease-in
           calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
         width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
-      background-color: var(--zen-main-browser-background-toolbar) !important;
-      background-image: var(--zen-main-browser-background-toolbar) !important;
-      background-attachment: fixed !important;
-      background-size: 2000px !important;
-      backdrop-filter: blur(10px), contrast(50%) !important;
-      box-shadow: var(--zen-big-shadow);
-      mix-blend-mode: normal;
+      background: var(--zen-main-browser-background) fixed !important;
+      backdrop-filter: blur(calc(5px + var(--zen-grainy-background-opacity, 1) * 10px)) !important;
       border-top-right-radius: var(--zen-border-radius) !important;
       border-bottom-right-radius: var(--zen-border-radius) !important;
     }
@@ -151,14 +146,19 @@
       left: 0;
       width: var(--zen-sidebar-width);
       height: calc(100% - var(--zen-element-separation));
-      background-image: url(chrome://browser/content/zen-images/grain-bg.png) !important;
+      background: url(chrome://browser/content/zen-images/grain-bg.png) repeat !important;
       pointer-events: none;
-      mix-blend-mode: overlay;
+      /* Mix blend mode is required to replicate zen but it doesn't 
+      work when using on top of an element with backdrop-filter 
+      */
+      /* mix-blend-mode: overlay; */
       opacity: 0;
       transition: 60ms opacity ease-in
           calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
         width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
       z-index: -1;
+      border-top-right-radius: var(--zen-border-radius) !important;
+      border-bottom-right-radius: var(--zen-border-radius) !important;
     }
 
     > #titlebar,
@@ -230,10 +230,6 @@
   /* Hide empty top buttons */
   #zen-sidebar-top-buttons {
     display: none !important;
-  }
-
-  #zen-sidebar-foot-buttons {
-    flex-wrap: wrap-reverse !important;
   }
 
   #zen-sidebar-bottom-buttons,
@@ -315,7 +311,7 @@
     ) !important;
 
     :root[zen-show-grainy-background="true"] &::after {
-      opacity: var(--zen-grainy-background-opacity, 1);
+      opacity: var(--zen-grainy-background-opacity, 1) !important;
     }
 
     &::before {
@@ -392,6 +388,8 @@
 
     /* Bottom buttons */
     #zen-sidebar-foot-buttons {
+      flex-wrap: wrap-reverse !important;
+      justify-content: center !important;
       & .subviewbutton:not([active="true"]) {
         display: none !important;
       }

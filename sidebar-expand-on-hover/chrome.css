@@ -70,6 +70,9 @@
   /* Stop New Tab button from increasing the width */
   .zen-workspace-tabs-section {
     width: calc(var(--tab-min-width) + var(--tab-block-margin)) !important;
+    &:not(.zen-essentials-container) {
+      min-width: 100% !important;
+    }
   }
 
   tab[pinned]:not([zen-essential]) > stack {
@@ -118,29 +121,44 @@
     min-width: var(--zen-toolbox-max-width) !important;
     position: relative !important;
 
-    /* 
-        I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
-        This is as close as I was able to get so far.
-        */
     &::before {
-      --zen-main-browser-background: #202020 !important;
-      --lwt-accent-color: var(--zen-main-browser-background-toolbar);
-      position: absolute;
+      position: absolute !important;
       content: "";
-      width: calc(var(--zen-sidebar-width) - var(--zen-toolbox-padding));
-      height: 100%;
+      width: var(--zen-sidebar-width);
+      height: calc(100% - var(--zen-element-separation));
+      opacity: 0;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      transition: 60ms opacity ease-in
+          calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
+        width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
+      background-color: var(--zen-main-browser-background-toolbar) !important;
+      background-image: var(--zen-main-browser-background-toolbar) !important;
+      background-attachment: fixed !important;
+      background-size: 2000px !important;
+      backdrop-filter: blur(10px), contrast(50%) !important;
+      box-shadow: var(--zen-big-shadow);
+      mix-blend-mode: normal;
+      border-top-right-radius: var(--zen-border-radius) !important;
+      border-bottom-right-radius: var(--zen-border-radius) !important;
+    }
+
+    :root[zen-show-grainy-background="true"] &::after {
+      content: "";
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      width: var(--zen-sidebar-width);
+      height: calc(100% - var(--zen-element-separation));
+      background-image: url(chrome://browser/content/zen-images/grain-bg.png) !important;
+      pointer-events: none;
+      mix-blend-mode: overlay;
       opacity: 0;
       transition: 60ms opacity ease-in
           calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
         width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
       z-index: -1;
-      background-image: var(--zen-main-browser-background) !important;
-      background-color: var(--lwt-accent-color) !important;
-      background-attachment: fixed !important;
-      background-size: 2000px !important;
-      backdrop-filter: blur(5px) !important;
-      border-top-right-radius: 8px !important;
-      border-bottom-right-radius: 8px !important;
     }
 
     > #titlebar,
@@ -173,13 +191,6 @@
     }
   }
 
-  /* Fix width smaller than the bar */
-  .zen-workspace-tabs-section {
-    &:not(.zen-essentials-container) {
-      min-width: 100% !important;
-    }
-  }
-
   /* Essentials */
   @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.wrap_essentials") {
     #zen-essentials {
@@ -192,7 +203,6 @@
   #zen-essentials {
     .zen-essentials-container {
       display: flex !important;
-      flex-wrap: wrap !important;
       justify-content: center !important;
       align-items: center !important;
       gap: 0 !important;
@@ -220,6 +230,10 @@
   /* Hide empty top buttons */
   #zen-sidebar-top-buttons {
     display: none !important;
+  }
+
+  #zen-sidebar-foot-buttons {
+    flex-wrap: wrap-reverse !important;
   }
 
   #zen-sidebar-bottom-buttons,
@@ -299,11 +313,17 @@
     --zen-sidebar-width: var(
       --theme-sidebar_expand_on_hover-expanded_width
     ) !important;
+
+    :root[zen-show-grainy-background="true"] &::after {
+      opacity: var(--zen-grainy-background-opacity, 1);
+    }
+
     &::before {
-      opacity: 1;
+      opacity: var(--zen-background-opacity, 1);
       transition: 60ms opacity ease-in,
         width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
     }
+
     @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_media_control") {
       #zen-media-controls-toolbar {
         opacity: 1 !important;
@@ -372,8 +392,6 @@
 
     /* Bottom buttons */
     #zen-sidebar-foot-buttons {
-      flex-direction: column !important;
-
       & .subviewbutton:not([active="true"]) {
         display: none !important;
       }

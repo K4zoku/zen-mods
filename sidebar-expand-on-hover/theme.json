@@ -1,0 +1,16 @@
+{
+    "id": "sidebar-expand-on-hover",
+    "name": "Sidebar expand on hover",
+    "description": "Expand the sidebar on hover, with many configurations avaliable",
+    "homepage": "https://github.com/K4zoku/zen-mods/sidebar-expand-on-hover",
+    "style": "https://raw.githubusercontent.com/K4zoku/zen-mods/refs/heads/main/sidebar-expand-on-hover/chrome.css",
+    "readme": "https://raw.githubusercontent.com/K4zoku/zen-mods/refs/heads/main/sidebar-expand-on-hover/README.md",
+    "image": "https://raw.githubusercontent.com/K4zoku/zen-mods/refs/heads/main/sidebar-expand-on-hover/screenshot.png",
+    "author": "K4zoku",
+    "version": "1.0.0",
+    "fork": ["Zen"],
+    "tags": [
+        "ui",
+        "customization"
+    ]
+}

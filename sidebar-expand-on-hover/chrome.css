@@ -132,9 +132,11 @@
       z-index: -2;
       transition: 60ms opacity ease-in
           calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
-        width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
+        width var(--theme-sidebar_expand_on_hover-func) var(--theme-sidebar_expand_on_hover-transition_speed);
       background: var(--zen-main-browser-background) fixed !important;
-      backdrop-filter: blur(calc(5px + var(--zen-grainy-background-opacity, 1) * 10px)) !important;
+      backdrop-filter: blur(
+        calc(5px + var(--zen-grainy-background-opacity, 1) * 10px)
+      ) !important;
       border-top-right-radius: var(--zen-border-radius) !important;
       border-bottom-right-radius: var(--zen-border-radius) !important;
     }
@@ -155,7 +157,7 @@
       opacity: 0;
       transition: 60ms opacity ease-in
           calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms),
-        width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
+        width var(--theme-sidebar_expand_on_hover-func) var(--theme-sidebar_expand_on_hover-transition_speed);
       z-index: -1;
       border-top-right-radius: var(--zen-border-radius) !important;
       border-bottom-right-radius: var(--zen-border-radius) !important;
@@ -175,9 +177,9 @@
     > #titlebar,
     > #zen-sidebar-top-buttons {
       overflow: hidden !important;
-      transition: width ease-in-out
+      transition: width var(--theme-sidebar_expand_on_hover-func)
           var(--theme-sidebar_expand_on_hover-transition_speed),
-        max-width ease-in-out
+        max-width var(--theme-sidebar_expand_on_hover-func)
           var(--theme-sidebar_expand_on_hover-transition_speed);
     }
 
@@ -185,8 +187,8 @@
       margin: 0 !important;
       padding-left: var(--zen-toolbox-padding) !important;
       transition: var(--ext-theme-background-transition),
-        width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed),
-        max-width ease-in-out
+        width var(--theme-sidebar_expand_on_hover-func) var(--theme-sidebar_expand_on_hover-transition_speed),
+        max-width var(--theme-sidebar_expand_on_hover-func)
           var(--theme-sidebar_expand_on_hover-transition_speed) !important;
     }
   }
@@ -317,7 +319,7 @@
     &::before {
       opacity: var(--zen-background-opacity, 1);
       transition: 60ms opacity ease-in,
-        width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);
+        width var(--theme-sidebar_expand_on_hover-func) var(--theme-sidebar_expand_on_hover-transition_speed);
     }
 
     @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_media_control") {
@@ -326,7 +328,7 @@
         appearance: visible !important;
         pointer-events: auto !important;
         transition: 60ms opacity ease-in,
-          width ease-in-out
+          width var(--theme-sidebar_expand_on_hover-func)
             var(--theme-sidebar_expand_on_hover-transition_speed) !important;
       }
     }
